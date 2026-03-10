@@ -16,12 +16,17 @@
     "@tensorflow/tfjs-core": "^4.22.0",
     "drizzle-orm": "^0.45.1",
     "framer-motion": "^12.35.2",
+<<<<<<< HEAD
     "next": "15.1.7",
+=======
+    "next": "15.0.0",
+>>>>>>> faacff2234a27bc309aa1fcad1fae1521f5d44bc
     "next-pwa": "^5.6.0",
     "postgres": "^3.4.8",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "zustand": "^5.0.11"
+<<<<<<< HEAD
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -35,5 +40,7 @@
     "eslint-config-next": "15.1.7",
     "tailwindcss": "^4",
     "typescript": "^5"
+=======
+>>>>>>> faacff2234a27bc309aa1fcad1fae1521f5d44bc
   }
 }
