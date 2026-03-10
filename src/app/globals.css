@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --color-midnight: #0A0E17;
+  --color-electric-cyan: #00F2FF;
+  --color-magical-violet: #B066FE;
+  
+  --font-outfit: "Outfit", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+:root {
+  --background: #0A0E17; /* Midnight Blue */
+  --foreground: #FFFFFF;
+  
+  /* Glassmorphism Tokens */
+  --glass-blur: 20px;
+  --glass-opacity: 0.15;
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit);
+}
+
+/* Glassmorphism Utility Utility */
+.glass {
+  background: rgba(255, 255, 255, var(--glass-opacity));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+/* Mirror Utility for Camera */
+.mirror {
+  transform: scaleX(-1);
+}
