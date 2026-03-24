@@ -4,12 +4,12 @@ const FRAME_COLORS: Record<string, { bg: string; text: string }> = {
     violet: { bg: "#B066FE", text: "#0A0E17" },
 };
 
-const WIDTH = 720;
-const PADDING = 30;
-const GAP = 12;
+const WIDTH = 1440;
+const PADDING = 60;
+const GAP = 24;
 const PHOTO_WIDTH = WIDTH - PADDING * 2;
 const PHOTO_HEIGHT = PHOTO_WIDTH * 3 / 4; // 4:3 aspect
-const FOOTER_HEIGHT = 80;
+const FOOTER_HEIGHT = 160;
 const HEIGHT = PADDING * 2 + PHOTO_HEIGHT * 4 + GAP * 3 + FOOTER_HEIGHT;
 
 export async function exportPhotostrip(
@@ -62,11 +62,11 @@ export async function exportPhotostrip(
     const footerY = PADDING + 4 * PHOTO_HEIGHT + 3 * GAP + 20;
     ctx.fillStyle = theme.text;
     ctx.textAlign = "center";
-    ctx.font = "bold 36px 'Outfit', sans-serif";
-    ctx.fillText("BOP", WIDTH / 2, footerY + 30);
-    ctx.font = "10px 'Inter', sans-serif";
+    ctx.font = "bold 72px 'Outfit', sans-serif";
+    ctx.fillText("BOP", WIDTH / 2, footerY + 60);
+    ctx.font = "20px 'Inter', sans-serif";
     ctx.globalAlpha = 0.4;
-    ctx.fillText("MAGICAL STUDIO EXPERIENCE", WIDTH / 2, footerY + 50);
+    ctx.fillText("MAGICAL STUDIO EXPERIENCE", WIDTH / 2, footerY + 100);
     ctx.globalAlpha = 1;
 
     // Download

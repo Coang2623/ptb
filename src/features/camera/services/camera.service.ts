@@ -21,8 +21,8 @@ export const cameraService = {
         const constraints: MediaStreamConstraints = {
             video: {
                 deviceId: deviceId ? { exact: deviceId } : undefined,
-                width: { ideal: 1280 },
-                height: { ideal: 720 },
+                width: { ideal: 3840 },
+                height: { ideal: 2160 },
             },
         };
 
