@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import { Photostrip } from "./Photostrip";
 import { cn } from "@/lib/utils/cn";
 
-import { PHOTO_FILTERS } from "../utils/filters";
+import { PHOTO_FILTERS, getFilterStyle } from "../utils/filters";
+import { exportPhotostrip } from "../utils/exportPhotostrip";
 
 import { useAIStore } from "@/store/ai-state";
 
@@ -20,6 +21,11 @@ export function ReviewScreen() {
         frameColor,
         setFrameColor
     } = useSessionStore();
+
+    const handleExport = () => {
+        const filterStyle = getFilterStyle(activeFilterId, brightness);
+        exportPhotostrip(photos, filterStyle.filter as string, frameColor);
+    };
 
     const handleRetake = () => {
         clearPhotos();
@@ -131,7 +137,10 @@ export function ReviewScreen() {
 
                 {/* Final Actions */}
                 <div className="flex flex-col gap-3 mt-1">
-                    <button className="w-full py-4 rounded-2xl bg-gradient-to-r from-electric-cyan to-magical-violet text-midnight font-outfit font-black text-lg shadow-[0_0_40px_rgba(0,242,255,0.4)] hover:shadow-[0_0_60px_rgba(0,242,255,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98]">
+                    <button
+                        onClick={handleExport}
+                        className="w-full py-4 rounded-2xl bg-gradient-to-r from-electric-cyan to-magical-violet text-midnight font-outfit font-black text-lg shadow-[0_0_40px_rgba(0,242,255,0.4)] hover:shadow-[0_0_60px_rgba(0,242,255,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                    >
                         GET YOUR PHOTOSTRIP
                     </button>
 
