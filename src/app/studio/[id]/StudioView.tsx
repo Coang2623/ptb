@@ -13,7 +13,7 @@ export function StudioView({ id }: { id: string }) {
     const isSessionComplete = photos.length >= 4;
 
     return (
-        <div className="h-screen bg-midnight relative overflow-hidden flex flex-col font-inter text-white">
+        <div className="min-h-screen bg-midnight relative flex flex-col font-inter text-white">
             <CameraStoreInitializer />
 
             {/* Background Glows */}
@@ -37,7 +37,7 @@ export function StudioView({ id }: { id: string }) {
             </header>
 
             {/* Main Studio Area */}
-            <main className={cn("flex-1 min-h-0 flex items-center justify-center z-10", isSessionComplete ? "p-0 overflow-hidden" : "p-4 sm:p-6 overflow-hidden")}>
+            <main className={cn("flex-1 flex items-center justify-center z-10", isSessionComplete ? "p-0" : "p-4 sm:p-6")}>
                 <div className="max-w-5xl w-full h-full flex items-center justify-center">
                     {isSessionComplete ? (
                         <ReviewScreen />
