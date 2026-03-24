@@ -2,7 +2,7 @@ export interface FilterConfig {
     name: string;
     id: string;
     style: string;
-    category: "basic" | "film" | "k-style" | "trending";
+    category: "basic" | "film" | "k-style" | "vivid" | "trending";
 }
 
 export const PHOTO_FILTERS: FilterConfig[] = [
@@ -18,7 +18,7 @@ export const PHOTO_FILTERS: FilterConfig[] = [
     {
         id: "portra-400",
         name: "Portra 400",
-        style: "brightness(1.05) contrast(0.95) saturate(0.85) sepia(0.08) hue-rotate(-5deg)",
+        style: "brightness(1.08) contrast(1.0) saturate(1.05) sepia(0.08) hue-rotate(-5deg)",
         category: "film",
     },
     {
@@ -30,13 +30,13 @@ export const PHOTO_FILTERS: FilterConfig[] = [
     {
         id: "superia",
         name: "Fuji Superia",
-        style: "brightness(1.03) contrast(1.05) saturate(0.9) hue-rotate(8deg) sepia(0.05)",
+        style: "brightness(1.05) contrast(1.08) saturate(1.05) hue-rotate(8deg) sepia(0.05)",
         category: "film",
     },
     {
         id: "pro-400h",
         name: "Pro 400H",
-        style: "brightness(1.12) contrast(0.88) saturate(0.75) hue-rotate(5deg) sepia(0.04)",
+        style: "brightness(1.12) contrast(0.92) saturate(0.9) hue-rotate(5deg) sepia(0.04)",
         category: "film",
     },
     {
@@ -50,26 +50,70 @@ export const PHOTO_FILTERS: FilterConfig[] = [
     {
         id: "k-soft",
         name: "K-Soft",
-        style: "brightness(1.18) contrast(0.9) saturate(0.8) sepia(0.05) blur(0.3px)",
+        style: "brightness(1.15) contrast(0.95) saturate(1.0) sepia(0.05) blur(0.3px)",
         category: "k-style",
     },
     {
         id: "k-cream",
         name: "K-Cream",
-        style: "brightness(1.1) contrast(0.92) saturate(0.85) sepia(0.18) hue-rotate(-3deg)",
+        style: "brightness(1.1) contrast(0.95) saturate(1.0) sepia(0.18) hue-rotate(-3deg)",
         category: "k-style",
     },
     {
         id: "k-blue",
         name: "K-Blue",
-        style: "brightness(1.12) contrast(0.93) saturate(0.78) hue-rotate(15deg) sepia(0.03)",
+        style: "brightness(1.1) contrast(1.0) saturate(0.95) hue-rotate(15deg) sepia(0.03)",
         category: "k-style",
     },
     {
         id: "haru",
         name: "Haru Film",
-        style: "brightness(1.15) contrast(0.9) saturate(0.88) sepia(0.12) hue-rotate(-10deg)",
+        style: "brightness(1.12) contrast(0.95) saturate(1.05) sepia(0.12) hue-rotate(-10deg)",
         category: "k-style",
+    },
+    {
+        id: "k-pink",
+        name: "K-Pink",
+        style: "brightness(1.1) contrast(1.0) saturate(1.2) hue-rotate(-15deg) sepia(0.08)",
+        category: "k-style",
+    },
+
+    // ── Vivid / Punchy ──
+    {
+        id: "pop-art",
+        name: "Pop Art",
+        style: "brightness(1.1) contrast(1.25) saturate(1.6) hue-rotate(5deg)",
+        category: "vivid",
+    },
+    {
+        id: "neon-glow",
+        name: "Neon Glow",
+        style: "brightness(1.05) contrast(1.2) saturate(1.5) hue-rotate(20deg)",
+        category: "vivid",
+    },
+    {
+        id: "candy",
+        name: "Candy",
+        style: "brightness(1.12) contrast(1.1) saturate(1.4) hue-rotate(-20deg) sepia(0.05)",
+        category: "vivid",
+    },
+    {
+        id: "electric",
+        name: "Electric",
+        style: "brightness(1.0) contrast(1.3) saturate(1.5) hue-rotate(30deg)",
+        category: "vivid",
+    },
+    {
+        id: "sunset-pop",
+        name: "Sunset Pop",
+        style: "brightness(1.08) contrast(1.15) saturate(1.45) sepia(0.15) hue-rotate(-15deg)",
+        category: "vivid",
+    },
+    {
+        id: "tropical",
+        name: "Tropical",
+        style: "brightness(1.1) contrast(1.1) saturate(1.4) hue-rotate(10deg) sepia(0.05)",
+        category: "vivid",
     },
 
     // ── Trending / Social ──
@@ -82,7 +126,7 @@ export const PHOTO_FILTERS: FilterConfig[] = [
     {
         id: "faded",
         name: "Faded Vintage",
-        style: "brightness(1.1) contrast(0.85) saturate(0.7) sepia(0.15)",
+        style: "brightness(1.1) contrast(0.9) saturate(0.85) sepia(0.15)",
         category: "trending",
     },
     {
@@ -115,6 +159,7 @@ export const FILTER_CATEGORIES = [
     { id: "basic", label: "Basic" },
     { id: "film", label: "Film" },
     { id: "k-style", label: "K-Style" },
+    { id: "vivid", label: "Vivid" },
     { id: "trending", label: "Trending" },
 ] as const;
 
