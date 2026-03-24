@@ -1,3 +1,5 @@
+import { processSkinEffects } from "./skinProcessor";
+
 const FRAME_COLORS: Record<string, { bg: string; text: string }> = {
     white: { bg: "#FFFFFF", text: "#0A0E17" },
     black: { bg: "#0A0E17", text: "#FFFFFF" },
@@ -15,7 +17,9 @@ const HEIGHT = PADDING * 2 + PHOTO_HEIGHT * 4 + GAP * 3 + FOOTER_HEIGHT;
 export async function exportPhotostrip(
     photos: string[],
     filterCss: string,
-    frameColor: string
+    frameColor: string,
+    skinSmooth: number = 0,
+    skinBright: number = 0,
 ): Promise<void> {
     const theme = FRAME_COLORS[frameColor] || FRAME_COLORS.white;
 
@@ -50,6 +54,14 @@ export async function exportPhotostrip(
             const sx = (img.width - sw) / 2;
             const sy = (img.height - sh) / 2;
             offCtx.drawImage(img, sx, sy, sw, sh, 0, 0, PHOTO_WIDTH, PHOTO_HEIGHT);
+
+            // Apply skin-aware effects (brightening + smoothing)
+            if (skinBright > 0 || skinSmooth > 0) {
+                processSkinEffects(offscreen, {
+                    brightLevel: skinBright,
+                    smoothLevel: skinSmooth,
+                });
+            }
 
             ctx.drawImage(offscreen, PADDING, y);
         } else {

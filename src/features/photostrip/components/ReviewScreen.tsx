@@ -31,8 +31,8 @@ export function ReviewScreen() {
     const filteredFilters = PHOTO_FILTERS.filter(f => f.category === activeCategory);
 
     const handleExport = () => {
-        const filterStyle = getFilterStyle(activeFilterId, brightness, skinSmooth, skinBright);
-        exportPhotostrip(photos, filterStyle.filter as string, frameColor);
+        const filterStyle = getFilterStyle(activeFilterId, brightness, 0, 0);
+        exportPhotostrip(photos, filterStyle.filter as string, frameColor, skinSmooth, skinBright);
     };
 
     const handleRetake = () => {
