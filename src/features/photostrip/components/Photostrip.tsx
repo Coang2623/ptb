@@ -23,8 +23,8 @@ const FRAME_COLORS: Record<string, { bg: string; text: string; border: string }>
  * A vertical, 4-frame assembly in classic K-Style.
  */
 export function Photostrip({ photos, className, compact, fitHeight }: Props) {
-    const { filter: filterId, brightness, frameColor } = useSessionStore();
-    const filterStyle = getFilterStyle(filterId, brightness);
+    const { filter: filterId, brightness, skinSmooth, skinBright, frameColor } = useSessionStore();
+    const filterStyle = getFilterStyle(filterId, brightness, skinSmooth, skinBright);
 
     // Get color theme
     const theme = FRAME_COLORS[frameColor] || FRAME_COLORS.white;

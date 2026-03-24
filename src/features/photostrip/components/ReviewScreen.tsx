@@ -19,6 +19,10 @@ export function ReviewScreen() {
         setFilter,
         brightness,
         setBrightness,
+        skinSmooth,
+        setSkinSmooth,
+        skinBright,
+        setSkinBright,
         frameColor,
         setFrameColor
     } = useSessionStore();
@@ -27,7 +31,7 @@ export function ReviewScreen() {
     const filteredFilters = PHOTO_FILTERS.filter(f => f.category === activeCategory);
 
     const handleExport = () => {
-        const filterStyle = getFilterStyle(activeFilterId, brightness);
+        const filterStyle = getFilterStyle(activeFilterId, brightness, skinSmooth, skinBright);
         exportPhotostrip(photos, filterStyle.filter as string, frameColor);
     };
 
@@ -109,50 +113,71 @@ export function ReviewScreen() {
                     </div>
                 </div>
 
-                {/* Brightness + Frame in one row */}
-                <div className="flex gap-3">
-                    {/* Brightness Control */}
-                    <div className="glass rounded-2xl p-4 border border-white/10 flex flex-col gap-3 flex-1">
-                        <div className="flex justify-between items-center">
-                            <span className="text-white/60 font-outfit text-xs uppercase tracking-widest font-bold">Brightness</span>
-                            <span className="text-electric-cyan font-mono text-xs">{brightness}%</span>
-                        </div>
-                        <input
-                            type="range"
-                            min="50"
-                            max="150"
-                            value={brightness}
-                            onChange={(e) => setBrightness(parseInt(e.target.value))}
-                            className="w-full h-1 bg-white/10 rounded-full appearance-none accent-electric-cyan cursor-pointer"
-                        />
+                {/* Adjustments */}
+                <div className="glass rounded-2xl p-4 border border-white/10 flex flex-col gap-3">
+                    <div className="flex justify-between items-center">
+                        <span className="text-white/60 font-outfit text-xs uppercase tracking-widest font-bold">Brightness</span>
+                        <span className="text-electric-cyan font-mono text-xs">{brightness}%</span>
                     </div>
+                    <input
+                        type="range"
+                        min="50"
+                        max="150"
+                        value={brightness}
+                        onChange={(e) => setBrightness(parseInt(e.target.value))}
+                        className="w-full h-1 bg-white/10 rounded-full appearance-none accent-electric-cyan cursor-pointer"
+                    />
+                    <div className="flex justify-between items-center mt-1">
+                        <span className="text-white/60 font-outfit text-xs uppercase tracking-widest font-bold">Skin Bright</span>
+                        <span className="text-electric-cyan font-mono text-xs">{skinBright}%</span>
+                    </div>
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={skinBright}
+                        onChange={(e) => setSkinBright(parseInt(e.target.value))}
+                        className="w-full h-1 bg-white/10 rounded-full appearance-none accent-electric-cyan cursor-pointer"
+                    />
+                    <div className="flex justify-between items-center mt-1">
+                        <span className="text-white/60 font-outfit text-xs uppercase tracking-widest font-bold">Skin Smooth</span>
+                        <span className="text-electric-cyan font-mono text-xs">{skinSmooth}%</span>
+                    </div>
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={skinSmooth}
+                        onChange={(e) => setSkinSmooth(parseInt(e.target.value))}
+                        className="w-full h-1 bg-white/10 rounded-full appearance-none accent-electric-cyan cursor-pointer"
+                    />
+                </div>
 
-                    {/* Frame Color Selection */}
-                    <div className="glass rounded-2xl p-4 border border-white/10 flex flex-col gap-3">
-                        <span className="text-white/60 font-outfit text-xs uppercase tracking-widest font-bold">Frame</span>
-                        <div className="flex gap-2">
-                            {[
-                                { id: 'white', class: 'bg-white border-black/10' },
-                                { id: 'black', class: 'bg-midnight border-white/20' },
-                                { id: 'violet', class: 'bg-magical-violet border-black/10' }
-                            ].map((color) => (
-                                <button
-                                    key={color.id}
-                                    onClick={() => setFrameColor(color.id)}
-                                    className={cn(
-                                        "w-8 h-8 rounded-full border-2 transition-all relative",
-                                        color.class,
-                                        frameColor === color.id ? "scale-110 border-electric-cyan" : "border-transparent opacity-60 hover:opacity-100"
-                                    )}
-                                >
-                                    {frameColor === color.id && (
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-electric-cyan" />
-                                        </div>
-                                    )}
-                                </button>
-                            ))}
-                        </div>
+                {/* Frame Color Selection */}
+                <div className="glass rounded-2xl p-4 border border-white/10 flex items-center gap-4">
+                    <span className="text-white/60 font-outfit text-xs uppercase tracking-widest font-bold">Frame</span>
+                    <div className="flex gap-2">
+                        {[
+                            { id: 'white', class: 'bg-white border-black/10' },
+                            { id: 'black', class: 'bg-midnight border-white/20' },
+                            { id: 'violet', class: 'bg-magical-violet border-black/10' }
+                        ].map((color) => (
+                            <button
+                                key={color.id}
+                                onClick={() => setFrameColor(color.id)}
+                                className={cn(
+                                    "w-8 h-8 rounded-full border-2 transition-all relative",
+                                    color.class,
+                                    frameColor === color.id ? "scale-110 border-electric-cyan" : "border-transparent opacity-60 hover:opacity-100"
+                                )}
+                            >
+                                {frameColor === color.id && (
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-electric-cyan" />
+                                    </div>
+                                )}
+                            </button>
+                        ))}
                     </div>
                 </div>
 

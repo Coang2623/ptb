@@ -163,11 +163,30 @@ export const FILTER_CATEGORIES = [
     { id: "trending", label: "Trending" },
 ] as const;
 
-export function getFilterStyle(filterId: string, brightness: number = 100): React.CSSProperties {
+export function getFilterStyle(
+    filterId: string,
+    brightness: number = 100,
+    skinSmooth: number = 0,
+    skinBright: number = 0,
+): React.CSSProperties {
     const filter = PHOTO_FILTERS.find(f => f.id === filterId);
-    const brightnessFilter = `brightness(${brightness}%)`;
+    const parts: string[] = [];
 
-    return {
-        filter: `${filter?.style || ""} ${brightnessFilter}`.trim()
-    };
+    if (filter?.style) parts.push(filter.style);
+    parts.push(`brightness(${brightness}%)`);
+
+    // Skin brightening: boost brightness + slight desaturation for whiter skin
+    if (skinBright > 0) {
+        const extraBright = 1 + skinBright * 0.003; // 0-30% extra brightness
+        const desat = 1 - skinBright * 0.002; // slight desaturation for whitening effect
+        parts.push(`brightness(${extraBright}) saturate(${desat})`);
+    }
+
+    // Skin smoothing: subtle blur
+    if (skinSmooth > 0) {
+        const blur = skinSmooth * 0.015; // 0-1.5px blur
+        parts.push(`blur(${blur}px)`);
+    }
+
+    return { filter: parts.join(" ") };
 }
