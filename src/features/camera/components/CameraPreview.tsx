@@ -85,7 +85,7 @@ export function CameraPreview() {
     }
 
     return (
-        <div className="relative w-full aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+        <div className="relative h-full aspect-[4/3] bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
             <video
                 ref={videoRef}
                 autoPlay

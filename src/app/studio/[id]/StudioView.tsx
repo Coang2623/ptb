@@ -6,13 +6,14 @@ import { CameraSelector } from "@/features/camera/components/CameraSelector";
 import { AIStatusIndicator } from "@/features/ai-engine/components/AIStatusIndicator";
 import { ReviewScreen } from "@/features/photostrip/components/ReviewScreen";
 import { CameraStoreInitializer } from "@/features/camera/components/CameraStoreInitializer";
+import { cn } from "@/lib/utils/cn";
 
 export function StudioView({ id }: { id: string }) {
     const { photos } = useSessionStore();
     const isSessionComplete = photos.length >= 4;
 
     return (
-        <div className="min-h-screen bg-midnight relative overflow-hidden flex flex-col font-inter text-white">
+        <div className="h-screen bg-midnight relative overflow-hidden flex flex-col font-inter text-white">
             <CameraStoreInitializer />
 
             {/* Background Glows */}
@@ -20,7 +21,7 @@ export function StudioView({ id }: { id: string }) {
             <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-magical-violet/10 blur-[150px] rounded-full -z-10" />
 
             {/* Studio Header */}
-            <header className="z-20 border-b border-white/5 backdrop-blur-md px-8 py-4 sm:py-6 flex items-center justify-between">
+            <header className="z-20 border-b border-white/5 backdrop-blur-md px-8 py-2 flex items-center justify-between">
                 <div>
                     <h2 className="text-xl sm:text-2xl font-bold font-outfit text-white tracking-tight">
                         {isSessionComplete ? "Review Gallery" : "Magical Studio"}
@@ -36,8 +37,8 @@ export function StudioView({ id }: { id: string }) {
             </header>
 
             {/* Main Studio Area */}
-            <main className="flex-1 flex items-center justify-center p-4 sm:p-8 z-10 overflow-y-auto">
-                <div className="max-w-5xl w-full h-full">
+            <main className={cn("flex-1 min-h-0 flex items-center justify-center z-10", isSessionComplete ? "p-0 overflow-hidden" : "p-4 sm:p-6 overflow-hidden")}>
+                <div className="max-w-5xl w-full h-full flex items-center justify-center">
                     {isSessionComplete ? (
                         <ReviewScreen />
                     ) : (
@@ -48,9 +49,9 @@ export function StudioView({ id }: { id: string }) {
 
             {/* Footer Controls */}
             {!isSessionComplete && (
-                <footer className="p-8 flex justify-center">
-                    <AIStatusIndicator />
-                </footer>
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
+                    <AIStatusIndicator vertical />
+                </div>
             )}
         </div>
     );

@@ -8,6 +8,8 @@ import { getFilterStyle } from "../utils/filters";
 interface Props {
     photos: string[];
     className?: string;
+    compact?: boolean;
+    fitHeight?: boolean;
 }
 
 const FRAME_COLORS: Record<string, { bg: string; text: string; border: string }> = {
@@ -20,7 +22,7 @@ const FRAME_COLORS: Record<string, { bg: string; text: string; border: string }>
  * Photostrip Component
  * A vertical, 4-frame assembly in classic K-Style.
  */
-export function Photostrip({ photos, className }: Props) {
+export function Photostrip({ photos, className, compact, fitHeight }: Props) {
     const { filter: filterId, brightness, frameColor } = useSessionStore();
     const filterStyle = getFilterStyle(filterId, brightness);
 
@@ -34,16 +36,20 @@ export function Photostrip({ photos, className }: Props) {
     }
 
     return (
-        <div className={cn(
-            "w-[320px] p-4 shadow-2xl flex flex-col gap-3 items-center transition-colors duration-500",
-            theme.bg,
-            className
-        )}>
+        <div
+            className={cn(
+                "shadow-2xl flex flex-col items-center transition-colors duration-500",
+                fitHeight ? "h-full aspect-[2/7] p-[2%] gap-[1%]" : compact ? "w-[220px] p-2.5 gap-2" : "w-[320px] p-4 gap-3",
+                theme.bg,
+                className
+            )}
+        >
             {displayPhotos.map((photo, idx) => (
                 <div
                     key={idx}
                     className={cn(
-                        "w-full aspect-[4/3] bg-midnight overflow-hidden relative border",
+                        "bg-midnight overflow-hidden relative border w-full",
+                        fitHeight ? "flex-1 min-h-0" : "aspect-[4/3]",
                         theme.border
                     )}
                 >
@@ -63,9 +69,9 @@ export function Photostrip({ photos, className }: Props) {
             ))}
 
             {/* Branding Footer */}
-            <div className="mt-2 flex flex-col items-center">
-                <h3 className={cn("font-outfit font-black tracking-tighter text-2xl leading-none", theme.text)}>BOP</h3>
-                <p className={cn("font-inter text-[8px] uppercase tracking-[0.3em] opacity-40 animate-pulse", theme.text)}>Magical Studio Experience</p>
+            <div className={cn("flex flex-col items-center shrink-0", fitHeight || compact ? "mt-0.5" : "mt-2")}>
+                <h3 className={cn("font-outfit font-black tracking-tighter leading-none", fitHeight || compact ? "text-base" : "text-2xl", theme.text)}>BOP</h3>
+                <p className={cn("font-inter uppercase tracking-[0.3em] opacity-40 animate-pulse", fitHeight || compact ? "text-[5px]" : "text-[8px]", theme.text)}>Magical Studio Experience</p>
             </div>
         </div>
     );
