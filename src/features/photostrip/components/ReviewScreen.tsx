@@ -1,11 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useSessionStore } from "@/store/session-state";
 import { motion } from "framer-motion";
 import { Photostrip } from "./Photostrip";
 import { cn } from "@/lib/utils/cn";
 
-import { PHOTO_FILTERS, getFilterStyle } from "../utils/filters";
+import { PHOTO_FILTERS, FILTER_CATEGORIES, getFilterStyle } from "../utils/filters";
 import { exportPhotostrip } from "../utils/exportPhotostrip";
 
 import { useAIStore } from "@/store/ai-state";
@@ -21,6 +22,9 @@ export function ReviewScreen() {
         frameColor,
         setFrameColor
     } = useSessionStore();
+
+    const [activeCategory, setActiveCategory] = useState<string>("basic");
+    const filteredFilters = PHOTO_FILTERS.filter(f => f.category === activeCategory);
 
     const handleExport = () => {
         const filterStyle = getFilterStyle(activeFilterId, brightness);
@@ -69,14 +73,31 @@ export function ReviewScreen() {
 
                 {/* Filter Selection */}
                 <div className="glass rounded-2xl p-4 border border-white/10 flex flex-col gap-3">
-                    <span className="text-white/60 font-outfit text-xs uppercase tracking-widest font-bold">Select Filter</span>
-                    <div className="grid grid-cols-5 gap-2">
-                        {PHOTO_FILTERS.map((f) => (
+                    {/* Category Tabs */}
+                    <div className="flex gap-1 bg-white/5 rounded-xl p-1">
+                        {FILTER_CATEGORIES.map((cat) => (
+                            <button
+                                key={cat.id}
+                                onClick={() => setActiveCategory(cat.id)}
+                                className={cn(
+                                    "flex-1 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all",
+                                    activeCategory === cat.id
+                                        ? "bg-electric-cyan/20 text-electric-cyan"
+                                        : "text-white/30 hover:text-white/60"
+                                )}
+                            >
+                                {cat.label}
+                            </button>
+                        ))}
+                    </div>
+                    {/* Filter Buttons */}
+                    <div className="grid grid-cols-3 gap-2">
+                        {filteredFilters.map((f) => (
                             <button
                                 key={f.id}
                                 onClick={() => setFilter(f.id)}
                                 className={cn(
-                                    "py-2 rounded-lg border transition-all uppercase tracking-tighter text-[9px] font-bold flex items-center justify-center",
+                                    "py-2 px-1 rounded-lg border transition-all text-[9px] font-bold flex items-center justify-center whitespace-nowrap",
                                     activeFilterId === f.id
                                         ? "bg-electric-cyan/20 border-electric-cyan text-electric-cyan shadow-[0_0_15px_rgba(0,242,255,0.3)]"
                                         : "bg-midnight border-white/5 text-white/40 hover:text-white hover:border-white/20"
